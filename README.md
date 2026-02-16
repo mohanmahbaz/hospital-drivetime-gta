@@ -1,86 +1,67 @@
-# Hospital Drive-Time Accessibility & Older Adults (65+) — GTA (GIS Day 2025 + DA Update)
+# Hospital Drive-Time Access & Older Adults (65+) — GTA
 
-This project maps **hospital drive-time accessibility** across the Greater Toronto Area (GTA) and compares it with the spatial distribution of **older adults (age 65+)** to highlight areas where higher senior populations may face longer travel times to hospitals.
+This project maps how long it takes to drive to a hospital across the Greater Toronto Area (GTA) and compares that with where **older adults (age 65+)** live. The goal is to identify areas where seniors may have longer travel times to hospital care.
 
-**Presented:** GIS Day 2025 (UW)  
 **Author:** Mohan Mahbaz  
-**Tools:** ArcGIS Pro (Network Analyst – Service Area), Beyond 20/20 (table extraction)
+**Presented:** GIS Day 2025 (UW)  
+**Software:** ArcGIS Pro (Network Analyst), Beyond 20/20 (table download)
 
 ---
 
-## Map preview (updated DA version)
-![Hospital drive time and 65+ per 1,000 (DA)](Final%20map%20layout%202026.png)
+## Map (final layout)
+![Hospital Drive Time & 65+ per 1,000 (DA)](Final%20map%20layout%202026.png)
 
+---
+
+## Presentation (GIS Day 2025)
+- **Slides (PowerPoint):** [Download here](QGIS%20Day%20Presentation%20comp.pptx)  
+  *(GitHub may not preview this in the browser because the file is large, but it downloads normally.)*
 
 ---
 
 ## Research question
-**How does hospital access (by driving time) vary across the GTA, and how does this pattern intersect with the distribution of adults aged 65+?**
+**How does hospital access (by driving time) vary across the GTA, and how does this relate to where older adults (65+) live?**
 
 ---
 
-## Data sources
-- **Population (Age 65+) + DA boundaries:** Statistics Canada, 2016 Census of Population  
-- **Road network:** Statistics Canada, 2016 Road Network File (RNF)  
-- **Hospital locations:** Ontario Ministry of Health (MOH) hospital locations  
-- **Coordinate system:** EPSG:26917 (NAD83 / UTM Zone 17N)
+## Data used
+- **Population + boundaries (DA):** Statistics Canada, 2016 Census
+- **Road network:** Statistics Canada, 2016 Road Network File (RNF)
+- **Hospitals:** Ontario Ministry of Health hospital locations
+- **Coordinate system:** NAD83 / UTM Zone 17N (EPSG:26917)
 
 ---
 
-## Methods (high-level workflow)
-1. **Prepared inputs**
-   - Cleaned hospital point locations and clipped study area to the GTA.
-   - Loaded the 2016 road network for network-based travel modeling.
-
-2. **Service area (drive-time) analysis**
-   - Generated hospital catchments using Network Analyst **Service Areas** at:
-     - **0–5 minutes**
-     - **5–10 minutes**
-     - **10–15 minutes**
-
-3. **Older adult metric**
-   - Calculated **Age 65+ per 1,000 residents** at the Dissemination Area (DA) level:
-     - `(Age 65+ / Total population) * 1000`
-
-4. **Overlay + cartographic design**
-   - Overlaid drive-time service areas on the DA choropleth.
-   - Designed final print layout (legend, north arrow, scale bar, data notes).
+## What I did (method)
+1. Loaded hospital locations and the GTA road network.
+2. Used **Service Area (drive-time)** analysis from each hospital to create travel-time zones:
+   - 0–5 minutes, 5–10 minutes, 10–15 minutes
+3. Calculated **older adults per 1,000 residents** for each Dissemination Area (DA):
+   - `(Age 65+ / Total population) * 1000`
+4. Mapped the 65+ rate by DA and overlaid the hospital drive-time zones.
 
 ---
 
-## Iteration & improvement (feedback-driven update)
-The original GIS Day 2025 version used a more aggregated geography. After feedback from **Dr. Tan**, I revised the analysis to address **MAUP (Modifiable Areal Unit Problem)** and improve interpretability:
-
-### What changed
-- **Geography:** moved from larger census units to **Dissemination Areas (DA)** (finer spatial resolution).
-- **Metric:** replaced “% age 65+” with **65+ per 1,000 residents** to support clearer comparison across areas.
-- **Data handling:** used **Beyond 20/20** to extract DA-level tables in smaller sections to avoid ArcGIS instability/crashes from very large full extracts.
-
-### Why it matters
-DA-level mapping reduces aggregation bias and reveals local patterns that can be hidden when using larger boundaries.
+## Improvement after feedback (MAUP)
+After feedback from **Dr. Tan**, I improved the analysis to reduce MAUP (Modifiable Areal Unit Problem):
+- Switched to **Dissemination Areas (DA)** for finer detail (instead of larger census units).
+- Used **65+ per 1,000 residents** instead of percent to support clearer comparison.
+- Used **Beyond 20/20** to download DA-level census tables in manageable parts (large downloads caused ArcGIS to crash).
 
 ---
 
-## Key takeaway (visual interpretation)
-Central GTA shows stronger hospital coverage within shorter drive times, while outer areas may require longer travel time—especially important where DA-level 65+ concentration is higher.
+## Key takeaway (from the map)
+Hospital access is generally strongest in central parts of the GTA, while some outer areas show longer drive times—important to consider where DA-level 65+ concentration is higher.
 
 ---
 
 ## Limitations
-- Drive-time results depend on road network assumptions (e.g., speeds/connectivity).
-- No live traffic or time-of-day congestion modeled.
-- Using 2016 census/network data may miss recent changes in population and infrastructure.
+- Drive-time results depend on road network assumptions (no real-time traffic).
+- Data is from 2016, so patterns may have changed since then.
 
 ---
 
 ## Files in this repository
-- `final_map_layout_2026.png` — updated DA-level map layout (final)
+- `Final map layout 2026.png` — final map layout
+- `QGIS Day Presentation comp.pptx` — GIS Day 2025 presentation slides
 - `README.md` — project documentation
-
----
-
-## Credits / licensing
-Census boundary and demographic data © Statistics Canada (2016).  
-Hospital locations: Ontario Ministry of Health (MOH).  
-Road Network File (RNF): Statistics Canada (2016).
-
