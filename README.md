@@ -9,7 +9,7 @@ This project maps **hospital drive-time accessibility** across the Greater Toron
 ---
 
 ## Map preview (updated DA version)
-![Hospital drive time and 65+ per 1,000 (DA)](final_map_layout_2026.png)
+![Hospital drive time and 65+ per 1,000 (DA)](Final%20map%20layout%202026.png)
 
 
 ---
